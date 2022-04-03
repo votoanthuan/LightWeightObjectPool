@@ -1,2 +1,2 @@
-# LightWeightObjectPool
-Light-weight object pool based on a thread-local stack.
+# Lightweight Object Pool
+Lightweight object pool based on a thread-local stack.

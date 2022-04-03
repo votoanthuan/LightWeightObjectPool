@@ -1,0 +1,34 @@
+plugins {
+    // Apply the java-library plugin for API and implementation separation.
+    id 'java-library'
+}
+
+project.version='0.1.0'
+project.description='Lightweight object pool based on a thread-local stack'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+jar{
+    manifest{
+        attributes(            
+            'Implementation-Version': project.version,
+            'Implementation-Title': project.description,
+            'Built-JDK': System.getProperty('java.version'),
+            'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss")
+        )
+    }
+    archiveFileName = "objectpool-${project.version}.jar"
+}
+
