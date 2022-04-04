@@ -3,7 +3,7 @@ plugins {
     id 'java-library'
 }
 
-project.version='0.1.0'
+project.version='1.0.0'
 project.description='Lightweight object pool based on a thread-local stack'
 compileJava.options.encoding = 'UTF-8'
 
