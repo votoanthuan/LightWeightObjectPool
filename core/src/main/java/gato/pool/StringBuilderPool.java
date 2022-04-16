@@ -17,7 +17,7 @@ public class StringBuilderPool extends ObjectPool<StringBuilder> {
     }
 
     @Override
-    public StringBuilder create() {
+    protected StringBuilder create() {
         return new StringBuilder(stringCapacity);
     }
 

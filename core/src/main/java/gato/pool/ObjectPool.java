@@ -12,17 +12,25 @@ public abstract class ObjectPool<T> {
     }
 
     /**
-     * Create new object
+     * Creates an instance that can be served by the pool
+     *
+     * @return an instance
      */
-    public abstract T create();
+    protected abstract T create();
 
     /**
-     * When an object is returned to the pool, the object will be passivated
+     * When an instance is returned to the pool, the instance will be passivated
+     *
+     * @param object the instance will be passivated
+     * @return the result of the passivation process. If true, the object will be added to the pool
      */
     protected abstract boolean passivate(T object);
 
     /**
      * Add object to pool and passivate it
+     *
+     * @param object the instance will be added to pool
+     * @return the result of the recycle process
      */
     public boolean recycle(T object) {
         ArrayDeque<T> queue = getQueue();
@@ -35,7 +43,9 @@ public abstract class ObjectPool<T> {
     }
 
     /**
-     * Get object form pool
+     * Get an instance form the pool
+     *
+     * @return an instance
      */
     public T get() {
         ArrayDeque<T> queue = getQueue();
