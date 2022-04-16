@@ -1,10 +1,17 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id 'maven-publish'
+    id 'signing'
 }
 
-project.version='0.1.0'
-project.description='Lightweight object pool based on a thread-local stack'
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+//project.version='0.1.0'
+//project.description='Lightweight object pool based on a thread-local stack'
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
@@ -20,15 +27,73 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
-jar{
-    manifest{
-        attributes(            
-            'Implementation-Version': project.version,
-            'Implementation-Title': project.description,
-            'Built-JDK': System.getProperty('java.version'),
-            'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss")
-        )
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.votoanthuan'
+            artifactId = 'LightweightObjectPool'
+            version = '1.0.0'
+            from components.java
+
+            pom {
+                name = 'Lightweight Object Pool'
+                description = 'Lightweight object pool based on a thread-local stack'
+                url = 'https://github.com/votoanthuan/LightweightObjectPool'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'ThuanVT'
+                        name = 'Vo Toan Thuan'
+                        email = 'votoanthuan@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/votoanthuan/LightweightObjectPool.git'
+                    developerConnection = 'scm:git:ssh://github.com:votoanthuan/LightweightObjectPool.git'
+                    url = 'https://github.com/votoanthuan/sigar/tree/main/core'
+                }
+            }
+        }
     }
-    archiveFileName = "objectpool-${project.version}.jar"
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            //Doc: https://central.sonatype.org/publish/publish-guide/#accessing-repositories
+            //url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+//            credentials {
+//                username = ossrhUsername
+//                password = ossrhPassword
+//            }
+        }
+    }
 }
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+
+
+//jar{
+//    manifest{
+//        attributes(
+//            'Implementation-Version': project.version,
+//            'Implementation-Title': project.description,
+//            'Built-JDK': System.getProperty('java.version'),
+//            'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss")
+//        )
+//    }
+//    //archiveFileName = "objectpool-${project.version}.jar"
+//}
 
