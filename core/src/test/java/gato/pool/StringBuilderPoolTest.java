@@ -27,8 +27,9 @@ class StringBuilderPoolTest {
         assertEquals(0, sb.length());
         assertEquals(1, pool.getQueueSize());
 
-        sb = pool.get();
-        assertEquals(0, sb.length());
+        StringBuilder sb1 = pool.get();
+        assertEquals(sb, sb1);
+        assertEquals(0, sb1.length());
         assertEquals(0, pool.getQueueSize());
     }
 
@@ -40,6 +41,7 @@ class StringBuilderPoolTest {
         for (int i = maxSize * 4; i >= 0; i--) {
             StringBuilder sb = new StringBuilder();
             pool.recycle(sb);
+            assertTrue(pool.getQueueSize() > 0);
             assertTrue(pool.getQueueSize() <= maxSize);
         }
 

@@ -15,6 +15,10 @@ test {
     useJUnitPlatform()
 }
 
+application {
+    mainClass = 'gato.pool.BenchmarkObjectPool'
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
@@ -33,7 +37,8 @@ jar{
             'Implementation-Version': project.version,
             'Implementation-Title': project.description,
             'Built-JDK': System.getProperty('java.version'),
-            'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss")
+            'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss"),
+            'Main-Class': 'gato.pool.BenchmarkObjectPool'
         )
     }
     archiveFileName = "benchmark-objectpool-${project.version}.jar"
