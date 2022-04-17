@@ -27,7 +27,7 @@ dependencies {
     annotationProcessor  group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.35'
 
     implementation project(':core')
-    implementation group: 'io.netty', name: 'netty-all', version: '4.1.75.Final'
+    implementation group: 'io.netty', name: 'netty-all', version: '4.1.76.Final'
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.11.1'
 }
 

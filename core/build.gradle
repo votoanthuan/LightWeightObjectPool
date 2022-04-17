@@ -10,8 +10,7 @@ java {
     withSourcesJar()
 }
 
-//project.version='0.1.0'
-//project.description='Lightweight object pool based on a thread-local stack'
+project.version='1.0.0'
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
@@ -30,9 +29,9 @@ dependencies {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'com.github.votoanthuan'
+            groupId = 'io.github.votoanthuan'
             artifactId = 'LightweightObjectPool'
-            version = '1.0.0'
+            version = project.version
             from components.java
 
             pom {
@@ -56,7 +55,7 @@ publishing {
                 scm {
                     connection = 'scm:git:git://github.com/votoanthuan/LightweightObjectPool.git'
                     developerConnection = 'scm:git:ssh://github.com:votoanthuan/LightweightObjectPool.git'
-                    url = 'https://github.com/votoanthuan/sigar/tree/main/core'
+                    url = 'https://github.com/votoanthuan/LightweightObjectPool'
                 }
             }
         }
@@ -83,17 +82,13 @@ signing {
     sign publishing.publications.mavenJava
 }
 
-
-
-//jar{
-//    manifest{
-//        attributes(
-//            'Implementation-Version': project.version,
-//            'Implementation-Title': project.description,
-//            'Built-JDK': System.getProperty('java.version'),
-//            'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss")
-//        )
-//    }
-//    //archiveFileName = "objectpool-${project.version}.jar"
-//}
+jar{
+    manifest{
+        attributes 'Implementation-Version': project.version
+        attributes 'Built-JDK': System.getProperty('java.version')
+        attributes 'Build-Time': new Date().format("yyyy-MM-dd HH:mm:ss")
+        attributes 'Website': 'https://github.com/votoanthuan/LightweightObjectPool'
+    }
+    //archiveFileName = "objectpool-${project.version}.jar"
+}
 
